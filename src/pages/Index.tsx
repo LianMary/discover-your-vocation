@@ -8,6 +8,7 @@ const Index = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const testSectionRef = React.useRef<HTMLElement>(null);
 
   const questions = [
     "Gosto de trabalhar com números e cálculos matemáticos complexos",
@@ -50,6 +51,13 @@ const Index = () => {
     setShowResults(false);
   };
 
+  const scrollToTest = () => {
+    testSectionRef.current?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
   const calculateResults = () => {
     const total = answers.reduce((sum, answer) => sum + answer, 0);
     const average = total / answers.length;
@@ -82,7 +90,7 @@ const Index = () => {
                   Um teste científico desenvolvido para ajudar você a identificar suas 
                   habilidades naturais e interesses profissionais.
                 </p>
-                <div className="flex justify-center gap-6 text-sm">
+                <div className="flex justify-center gap-6 text-sm mb-6">
                   <div className="flex items-center gap-2">
                     <Target className="w-4 h-4 text-primary" />
                     <span>10 Perguntas</span>
@@ -92,6 +100,9 @@ const Index = () => {
                     <span>Resultado Imediato</span>
                   </div>
                 </div>
+                <Button onClick={scrollToTest} className="w-full">
+                  Começar Teste
+                </Button>
               </CardContent>
             </Card>
           </div>
@@ -172,7 +183,7 @@ const Index = () => {
       </section>
 
       {/* Test Section */}
-      <section className="py-16 px-4">
+      <section ref={testSectionRef} className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Teste Vocacional</h2>

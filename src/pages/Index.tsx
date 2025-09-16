@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ScaleQuestion from "@/components/ScaleQuestion";
-import { BookOpen, TrendingUp, Users, Award, Brain, Target } from "lucide-react";
+import { BookOpen, TrendingUp, Users, Award, Brain, Target, Menu, X, Home, Info, HelpCircle } from "lucide-react";
 
 const Index = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const testSectionRef = React.useRef<HTMLElement>(null);
+  const aboutSectionRef = React.useRef<HTMLElement>(null);
 
   const questions = [
     "Gosto de trabalhar com números e cálculos matemáticos complexos",
@@ -58,6 +60,17 @@ const Index = () => {
     });
   };
 
+  const scrollToAbout = () => {
+    aboutSectionRef.current?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  const scrollToHome = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const calculateResults = () => {
     const total = answers.reduce((sum, answer) => sum + answer, 0);
     const average = total / answers.length;
@@ -69,6 +82,92 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Navigation Bar */}
+      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <Brain className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <span className="font-bold text-lg">TestVocacional</span>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              <button 
+                onClick={scrollToHome}
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Home className="w-4 h-4" />
+                Início
+              </button>
+              <button 
+                onClick={scrollToAbout}
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Info className="w-4 h-4" />
+                Sobre
+              </button>
+              <button 
+                onClick={scrollToTest}
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <HelpCircle className="w-4 h-4" />
+                Teste
+              </button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden py-4 border-t">
+              <div className="flex flex-col gap-4">
+                <button 
+                  onClick={() => {
+                    scrollToHome();
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors p-2"
+                >
+                  <Home className="w-4 h-4" />
+                  Início
+                </button>
+                <button 
+                  onClick={() => {
+                    scrollToAbout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors p-2"
+                >
+                  <Info className="w-4 h-4" />
+                  Sobre
+                </button>
+                <button 
+                  onClick={() => {
+                    scrollToTest();
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors p-2"
+                >
+                  <HelpCircle className="w-4 h-4" />
+                  Teste
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
       {/* Hero Banner */}
       <section className="bg-gradient-hero py-20 px-4">
         <div className="max-w-6xl mx-auto">
@@ -110,7 +209,7 @@ const Index = () => {
       </section>
 
       {/* Info Cards Section */}
-      <section className="py-16 px-4 bg-test-bg">
+      <section ref={aboutSectionRef} className="py-16 px-4 bg-test-bg">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Importance Card */}

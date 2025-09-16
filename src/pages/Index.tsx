@@ -64,8 +64,8 @@ const Index = () => {
       {/* Hero Banner */}
       <section className="bg-gradient-hero py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="flex justify-center mb-8">
-            <Card className="max-w-2xl w-full bg-white/95 backdrop-blur-sm shadow-xl">
+          <div className="flex justify-start mb-8">
+            <Card className="max-w-lg bg-white/95 backdrop-blur-sm shadow-xl">
               <CardHeader className="text-center">
                 <div className="mx-auto mb-4 w-16 h-16 bg-primary rounded-full flex items-center justify-center">
                   <Brain className="w-8 h-8 text-primary-foreground" />

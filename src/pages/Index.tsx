@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ScaleQuestion from "@/components/ScaleQuestion";
-import { BookOpen, TrendingUp, Users, Award, Brain, Target, Menu, X, Home, Info, HelpCircle } from "lucide-react";
+import { BookOpen, TrendingUp, Users, Award, Brain, Target, Menu, X, Home, Info, LogIn } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -110,13 +111,13 @@ const Index = () => {
                 <Info className="w-4 h-4" />
                 Sobre
               </button>
-              <button 
-                onClick={scrollToTest}
+              <Link 
+                to="/login"
                 className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               >
-                <HelpCircle className="w-4 h-4" />
-                Teste
-              </button>
+                <LogIn className="w-4 h-4" />
+                Login
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -152,16 +153,14 @@ const Index = () => {
                   <Info className="w-4 h-4" />
                   Sobre
                 </button>
-                <button 
-                  onClick={() => {
-                    scrollToTest();
-                    setIsMenuOpen(false);
-                  }}
+                <Link 
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors p-2"
                 >
-                  <HelpCircle className="w-4 h-4" />
-                  Teste
-                </button>
+                  <LogIn className="w-4 h-4" />
+                  Login
+                </Link>
               </div>
             </div>
           )}

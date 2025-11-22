@@ -3,12 +3,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import ScaleQuestion from "@/components/ScaleQuestion";
 import { Award, Brain, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Test = () => {
+  const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
-  const [showResults, setShowResults] = useState(false);
 
   const questions = [
     "Gosto de trabalhar com números e cálculos matemáticos complexos",
@@ -32,7 +32,8 @@ const Test = () => {
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
-        setShowResults(true);
+        // Navigate to results page with answers
+        navigate("/resultados", { state: { answers: newAnswers } });
       }
     }, 500);
   };
@@ -40,16 +41,6 @@ const Test = () => {
   const resetTest = () => {
     setCurrentQuestion(0);
     setAnswers([]);
-    setShowResults(false);
-  };
-
-  const calculateResults = () => {
-    const total = answers.reduce((sum, answer) => sum + answer, 0);
-    const average = total / answers.length;
-    
-    if (average >= 4) return "Alto interesse vocacional";
-    if (average >= 2.5) return "Interesse vocacional moderado"; 
-    return "Baixo interesse vocacional";
   };
 
   return (
@@ -88,53 +79,25 @@ const Test = () => {
             </p>
           </div>
 
-          {!showResults ? (
-            <div className="space-y-8">
-              {/* Progress Bar */}
-              <div className="w-full bg-muted rounded-full h-2">
-                <div 
-                  className="bg-primary h-2 rounded-full transition-all duration-500"
-                  style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-                ></div>
-              </div>
-              
-              <div className="text-center text-sm text-muted-foreground">
-                Pergunta {currentQuestion + 1} de {questions.length}
-              </div>
-
-              <ScaleQuestion
-                question={questions[currentQuestion]}
-                onAnswer={handleAnswer}
-                key={currentQuestion}
-              />
+          <div className="space-y-8">
+            {/* Progress Bar */}
+            <div className="w-full bg-muted rounded-full h-2">
+              <div 
+                className="bg-primary h-2 rounded-full transition-all duration-500"
+                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+              ></div>
             </div>
-          ) : (
-            <Card className="max-w-2xl mx-auto text-center">
-              <CardHeader>
-                <div className="mx-auto mb-4 w-16 h-16 bg-secondary rounded-full flex items-center justify-center">
-                  <Award className="w-8 h-8 text-secondary-foreground" />
-                </div>
-                <CardTitle className="text-2xl">Teste Concluído!</CardTitle>
-                <CardDescription>
-                  Aqui está o seu resultado baseado nas suas respostas
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-test-bg rounded-lg p-6 mb-6">
-                  <h3 className="text-xl font-semibold text-primary mb-2">
-                    {calculateResults()}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Suas respostas indicam um padrão específico de interesses e aptidões. 
-                    Recomendamos buscar orientação profissional para um resultado mais detalhado.
-                  </p>
-                </div>
-                <Button onClick={resetTest} className="w-full">
-                  Refazer Teste
-                </Button>
-              </CardContent>
-            </Card>
-          )}
+            
+            <div className="text-center text-sm text-muted-foreground">
+              Pergunta {currentQuestion + 1} de {questions.length}
+            </div>
+
+            <ScaleQuestion
+              question={questions[currentQuestion]}
+              onAnswer={handleAnswer}
+              key={currentQuestion}
+            />
+          </div>
         </div>
       </section>
     </div>

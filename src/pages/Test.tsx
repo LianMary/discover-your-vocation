@@ -11,16 +11,16 @@ const Test = () => {
   const [answers, setAnswers] = useState<number[]>([]);
 
   const questions = [
-    "Gosto de trabalhar com números e cálculos matemáticos complexos",
-    "Prefiro atividades que envolvem criatividade e expressão artística",
-    "Me sinto confortável liderando grupos e tomando decisões importantes",
-    "Tenho interesse em compreender como as coisas funcionam tecnicamente",
-    "Gosto de ajudar outras pessoas a resolver seus problemas",
-    "Me interesso por questões relacionadas à saúde e bem-estar",
-    "Prefiro trabalhos que me permitam estar em contato com a natureza",
-    "Tenho facilidade para me comunicar e persuadir outras pessoas",
-    "Me sinto motivado por desafios que envolvem análise e pesquisa",
-    "Gosto de atividades que exigem precisão e atenção aos detalhes"
+    "Prefiro resolver probelmas matemáticos, quebra-cabeças e analisar padões lógicos.",
+    "Gosto de ler escrever e me comunico verbalmente com facilidade, expressando ideias com clareza.",
+    "Tenho facilidade para criar objetos 3D, desenhar, pintar ou interpretar mapas e imagens.",
+    "Sinto satisfação e facilidade para tocar instrumentos, perceber ritmos, melodias e criar músicas.",
+    "Prefiro atividades que envolvam movimento corporal, esportes,danças ou trabalhos manuais.",
+    "Me sinto confortavel em trabalhar com pessoas, entender emoções e colaborar em equipe.",
+    "Tenho facilidade em refletir sobre mim mesmo. Conheço meus sentimentos, motivações e objetivos.",
+    "Gosto de estar em contato com a naturaza, estudar plantas, animais e ajudar me causas ambientais.",
+    "Reflito sobre questões filosóficas.existenciais, e tenho interesse em temas como vida, morte e sentido das coisas.",
+
   ];
 
   const handleAnswer = (value: number) => {
@@ -42,7 +42,9 @@ const Test = () => {
     setCurrentQuestion(0);
     setAnswers([]);
   };
+  const questionsRotes = () => {
 
+  }
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation Bar */}

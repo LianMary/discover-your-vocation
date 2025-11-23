@@ -25,24 +25,24 @@ const Results = () => {
 
   // Categorize questions into vocational areas
   const categories = [
-    { name: "Exatas", questions: [0, 9] },
-    { name: "Artes", questions: [1] },
-    { name: "Liderança", questions: [2] },
-    { name: "Tecnologia", questions: [3] },
-    { name: "Humanas", questions: [4] },
-    { name: "Saúde", questions: [5] },
-    { name: "Natureza", questions: [6] },
-    { name: "Comunicação", questions: [7] },
-    { name: "Pesquisa", questions: [8] },
+    { name: "Lógico-Matemática", questions: [0, 9] },
+    { name: "Linguística", questions: [1] },
+    { name: "Espacial", questions: [2] },
+    { name: "Musical", questions: [3] },
+    { name: "Corporal-Cinestésica", questions: [4] },
+    { name: "Interpessoal", questions: [5] },
+    { name: "Intrapessoal", questions: [6] },
+    { name: "Naturalista", questions: [7] },
+    { name: "Existencial", questions: [8] },
   ];
 
-  // Calculate scores for each category (scale 1-5)
+  // Calculate scores for each category
   const chartData = categories.map((category) => {
     const total = category.questions.reduce((sum, qIndex) => sum + (answers[qIndex] || 0), 0);
     const average = total / category.questions.length;
     return {
       name: category.name,
-      score: Math.round(average * 20), // Convert 1-5 scale to 20-100 scale
+      score: Math.round(average * 20), // Convert to 0-100 scale
     };
   });
 
@@ -52,15 +52,15 @@ const Results = () => {
 
   // Profession recommendations based on categories
   const professionMap: Record<string, string[]> = {
-    Exatas: ["Engenheiro de Dados", "Matemático", "Estatístico"],
-    Artes: ["Designer Gráfico", "Arquiteto", "Diretor de Arte"],
-    Liderança: ["Gestor de Projetos", "Diretor Executivo", "Empreendedor"],
-    Tecnologia: ["Desenvolvedor de Software", "Engenheiro de Sistemas", "Analista de TI"],
-    Humanas: ["Psicólogo", "Assistente Social", "Professor"],
-    Saúde: ["Médico", "Enfermeiro", "Nutricionista"],
-    Natureza: ["Engenheiro Ambiental", "Biólogo", "Agrônomo"],
-    Comunicação: ["Jornalista", "Publicitário", "Relações Públicas"],
-    Pesquisa: ["Cientista", "Pesquisador Acadêmico", "Analista de Dados"],
+    Lógico_Matemática: ["Cientista de Dados", "Engenheiro", "Analista de Dados"],
+    Linguística: ["Jornalista","Redator Publicitário", "Tradutor/Intérprete"],
+    Espacial: ["Arquiterto", "Designer Gráfico", "Engenheiro Cívil"],
+    Musical: ["Produtor Musical", "Músico/Instrumentista", "Compositor"],
+    Corporal_Cinestésica: ["Fisioterapia", "Ator/ Dançarino", "Educador Físico"],
+    Interpessoal: ["Psicologo","Gestor de Recursos Humanos", "Professor"],
+    Intrapessoal: ["Terapeuta Holístico", "Filósofo", "Escritor"],
+    Naturalista: ["Biológo", "Engenheito Ambiental", "Agrônomo"],
+    Existencial: ["Filósofo", "Teólogo", "Pesquisador de Ciências Humanas"],
   };
 
   // Generate profession recommendations
@@ -77,15 +77,15 @@ const Results = () => {
 
   // Specific colors for each category
   const categoryColors: Record<string, string> = {
-    Exatas: "hsl(220, 90%, 56%)", // Blue
-    Artes: "hsl(280, 65%, 60%)", // Purple
-    Liderança: "hsl(25, 95%, 53%)", // Orange
-    Tecnologia: "hsl(160, 84%, 39%)", // Teal
-    Humanas: "hsl(340, 75%, 55%)", // Pink
-    Saúde: "hsl(142, 71%, 45%)", // Green
-    Natureza: "hsl(84, 65%, 50%)", // Lime
-    Comunicação: "hsl(200, 92%, 48%)", // Cyan
-    Pesquisa: "hsl(262, 52%, 47%)", // Deep Purple
+    Lógico_Matemática: "hsl(220, 90%, 56%)", // Blue
+    Linguística: "hsl(280, 65%, 60%)", // Purple
+    Espacial: "hsl(25, 95%, 53%)", // Orange
+    Musical: "hsl(160, 84%, 39%)", // Teal
+    Corporal_Cinestésica: "hsl(340, 75%, 55%)", // Pink
+    Interpessoal: "hsl(142, 71%, 45%)", // Green
+    Intrapessoal: "hsl(84, 65%, 50%)", // Lime
+    Naturalista: "hsl(200, 92%, 48%)", // Cyan
+    Existencial: "hsl(262, 52%, 47%)", // Deep Purple
   };
 
   return (

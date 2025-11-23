@@ -8,14 +8,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
+//Verificação do nome, email e telefone 
 const loginSchema = z.object({
   name: z.string().trim().min(2, "Nome deve ter pelo menos 2 caracteres").max(100, "Nome muito longo"),
   email: z.string().trim().email("Email inválido").max(255, "Email muito longo"),
-  phone: z.string().trim().min(10, "Telefone deve ter pelo menos 10 dígitos").max(20, "Telefone muito longo"),
+  phone: z.string().trim().min(11, "Telefone deve ter pelo menos 11 dígitos").max(12, "Telefone muito longo"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
-
+//
 const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();

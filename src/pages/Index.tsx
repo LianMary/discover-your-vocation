@@ -8,11 +8,11 @@ const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const popularCourses = [
-    { name: "Medicina", icon: "🏥", growth: "+15%" },
-    { name: "Engenharia", icon: "⚙️", growth: "+12%" },
-    { name: "Direito", icon: "⚖️", growth: "+8%" },
-    { name: "Psicologia", icon: "🧠", growth: "+20%" },
-    { name: "Administração", icon: "💼", growth: "+10%" }
+    { name: "Medicina", icon: "🏥"},
+    { name: "Engenharia", icon: "⚙️"},
+    { name: "Direito", icon: "⚖️"},
+    { name: "Psicologia", icon: "🧠"},
+    { name: "Administração", icon: "💼"}
   ];
 
   return (
@@ -26,7 +26,7 @@ const Index = () => {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Brain className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="font-bold text-lg">TestVocacional</span>
+              <span className="font-bold text-lg">Teste Vocacional</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -39,6 +39,7 @@ const Index = () => {
                 Login
               </Link>
             </div>
+          
 
             {/* Mobile Menu Button */}
             <button 
@@ -91,7 +92,7 @@ const Index = () => {
                 <div className="flex justify-center gap-6 text-sm mb-6">
                   <div className="flex items-center gap-2">
                     <Target className="w-4 h-4 text-primary" />
-                    <span>10 Perguntas</span>
+                    <span>15 Perguntas</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Award className="w-4 h-4 text-secondary" />
@@ -126,24 +127,24 @@ const Index = () => {
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground">
                   O teste vocacional é uma ferramenta essencial para quem busca clareza 
-                  sobre sua carreira profissional.
+                  sobre sua carreira profissional.Ele auxilia na escolha da futura profissão baseado em suas aptdões e interesses pessoais.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span>Identifica suas habilidades naturais</span>
+                    <span>Identifica suas habilidades naturais;</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span>Reduz ansiedade na escolha profissional</span>
+                    <span>Reduz ansiedade na escolha profissional;</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span>Orienta decisões acadêmicas importantes</span>
+                    <span>Orienta decisões acadêmicas importantes;</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span>Aumenta chances de satisfação profissional</span>
+                    <span>Aumenta chances de satisfação profissional; </span>
                   </li>
                 </ul>
               </CardContent>
@@ -170,9 +171,6 @@ const Index = () => {
                         <span className="text-2xl">{course.icon}</span>
                         <span className="font-medium">{course.name}</span>
                       </div>
-                      <span className="text-sm text-secondary font-semibold">
-                        {course.growth}
-                      </span>
                     </div>
                   ))}
                 </div>

@@ -75,12 +75,18 @@ const Results = () => {
     setProfessions(recommendations);
   }, []);
 
-  // Custom colors for bars
-  const barColors = [
-    "hsl(var(--primary))",
-    "hsl(var(--secondary))",
-    "hsl(var(--accent))",
-  ];
+  // Specific colors for each category
+  const categoryColors: Record<string, string> = {
+    Exatas: "hsl(220, 90%, 56%)", // Blue
+    Artes: "hsl(280, 65%, 60%)", // Purple
+    Liderança: "hsl(25, 95%, 53%)", // Orange
+    Tecnologia: "hsl(160, 84%, 39%)", // Teal
+    Humanas: "hsl(340, 75%, 55%)", // Pink
+    Saúde: "hsl(142, 71%, 45%)", // Green
+    Natureza: "hsl(84, 65%, 50%)", // Lime
+    Comunicação: "hsl(200, 92%, 48%)", // Cyan
+    Pesquisa: "hsl(262, 52%, 47%)", // Deep Purple
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -125,7 +131,7 @@ const Results = () => {
                 <h3 className="text-xl font-semibold mb-4">Pontuação por Área</h3>
                 <div className="w-full h-[400px]">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={chartData}>
+                    <BarChart data={sortedCategories}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis 
                         dataKey="name" 
@@ -146,10 +152,10 @@ const Results = () => {
                         labelStyle={{ color: "hsl(var(--foreground))" }}
                       />
                       <Bar dataKey="score" radius={[8, 8, 0, 0]}>
-                        {chartData.map((entry, index) => (
+                        {sortedCategories.map((entry, index) => (
                           <Cell 
                             key={`cell-${index}`} 
-                            fill={index < 3 ? barColors[index] : "hsl(var(--muted))"}
+                            fill={categoryColors[entry.name] || "hsl(var(--muted))"}
                           />
                         ))}
                       </Bar>

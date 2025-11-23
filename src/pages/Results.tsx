@@ -115,24 +115,28 @@ const Results = () => {
       {/* Results Section */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <Card className="mb-8">
+          <Card className="mb-8 animate-scale-in">
             <CardHeader className="text-center">
-              <div className="mx-auto mb-4 w-16 h-16 bg-secondary rounded-full flex items-center justify-center">
+              <div className="mx-auto mb-4 w-16 h-16 bg-secondary rounded-full flex items-center justify-center animate-fade-in" style={{ animationDelay: "100ms" }}>
                 <Award className="w-8 h-8 text-secondary-foreground" />
               </div>
-              <CardTitle className="text-3xl">Resultados do Teste Vocacional</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-3xl animate-fade-in" style={{ animationDelay: "200ms", animationFillMode: "backwards" }}>Resultados do Teste Vocacional</CardTitle>
+              <CardDescription className="animate-fade-in" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
                 Veja suas pontuações por área e as profissões recomendadas
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-8">
               {/* Chart Section */}
-              <div>
+              <div className="animate-fade-in">
                 <h3 className="text-xl font-semibold mb-4">Pontuação por Área</h3>
                 <div className="w-full h-[400px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={sortedCategories}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <CartesianGrid 
+                        strokeDasharray="3 3" 
+                        stroke="hsl(var(--border))"
+                        opacity={0.3}
+                      />
                       <XAxis 
                         dataKey="name" 
                         stroke="hsl(var(--foreground))"
@@ -150,8 +154,16 @@ const Results = () => {
                           borderRadius: "6px",
                         }}
                         labelStyle={{ color: "hsl(var(--foreground))" }}
+                        animationDuration={300}
+                        animationEasing="ease-out"
                       />
-                      <Bar dataKey="score" radius={[8, 8, 0, 0]}>
+                      <Bar 
+                        dataKey="score" 
+                        radius={[8, 8, 0, 0]}
+                        animationBegin={200}
+                        animationDuration={1000}
+                        animationEasing="ease-out"
+                      >
                         {sortedCategories.map((entry, index) => (
                           <Cell 
                             key={`cell-${index}`} 
@@ -165,7 +177,7 @@ const Results = () => {
               </div>
 
               {/* Professions Section */}
-              <div>
+              <div className="animate-fade-in" style={{ animationDelay: "400ms", animationFillMode: "backwards" }}>
                 <h3 className="text-xl font-semibold mb-4">Profissões Recomendadas</h3>
                 <Textarea
                   value={professions}
@@ -174,7 +186,7 @@ const Results = () => {
                 />
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex gap-4 animate-fade-in" style={{ animationDelay: "600ms", animationFillMode: "backwards" }}>
                 <Button onClick={() => navigate("/teste")} variant="outline" className="flex-1">
                   Refazer Teste
                 </Button>

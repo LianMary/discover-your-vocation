@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Check } from 'lucide-react';
 
 interface ScaleQuestionProps {
   question: string;
@@ -14,13 +15,12 @@ const ScaleQuestion: React.FC<ScaleQuestionProps> = ({ question, onAnswer, answe
     onAnswer(value);
   };
 
-  const scaleLabels = [
-    "Não me identifico",
-    "Me identifico pouco", 
-    "Me identifico parcialmente",
-    "Me identifico",
-    "Me identifico bem",
-    "Me identifico bastante"
+  const scaleOptions = [
+    { value: 1, label: "Não me identifico" },
+    { value: 2, label: "Me identifico pouco" },
+    { value: 3, label: "Me identifico parcialmente" },
+    { value: 4, label: "Me identifico bem" },
+    { value: 5, label: "Me identifico muito" }
   ];
 
   return (
@@ -29,42 +29,49 @@ const ScaleQuestion: React.FC<ScaleQuestionProps> = ({ question, onAnswer, answe
         {question}
       </h3>
       
-      <div className="space-y-4">
-        <div className="flex justify-between items-center gap-2">
-          {Array.from({ length: 6 }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => handleScaleClick(i)}
-              className={`
-                w-12 h-12 rounded-full border-2 transition-all duration-200 font-semibold text-sm
-                hover:scale-110 active:animate-scale-bounce
-                ${selectedValue === i 
-                  ? 'bg-scale-active border-scale-active text-white shadow-lg' 
-                  : 'bg-background border-scale-inactive text-muted-foreground hover:border-primary hover:text-primary'
+      <div className="space-y-3">
+        {scaleOptions.map((option, index) => (
+          <button
+            key={option.value}
+            onClick={() => handleScaleClick(option.value)}
+            className={`
+              w-full p-4 rounded-lg border-2 transition-all duration-200 
+              flex items-center justify-between group
+              animate-fade-in
+              ${selectedValue === option.value
+                ? 'bg-primary border-primary text-primary-foreground shadow-md' 
+                : 'bg-background border-border hover:border-primary hover:bg-accent'
+              }
+            `}
+            style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'backwards' }}
+          >
+            <div className="flex items-center gap-4">
+              <div className={`
+                w-8 h-8 rounded-full border-2 flex items-center justify-center
+                font-semibold text-sm transition-all
+                ${selectedValue === option.value
+                  ? 'bg-primary-foreground text-primary border-primary-foreground' 
+                  : 'border-muted-foreground text-muted-foreground group-hover:border-primary group-hover:text-primary'
                 }
-              `}
-            >
-              {i}
-            </button>
-          ))}
-        </div>
-        
-        <div className="flex justify-between text-xs text-muted-foreground">
-          <span className="max-w-[80px] text-center leading-tight">
-            {scaleLabels[0]}
-          </span>
-          <span className="max-w-[80px] text-center leading-tight">
-            {scaleLabels[5]}
-          </span>
-        </div>
-        
-        {selectedValue !== null && (
-          <div className="text-center pt-2">
-            <span className="text-sm text-primary font-medium">
-              {scaleLabels[selectedValue]}
-            </span>
-          </div>
-        )}
+              `}>
+                {option.value}
+              </div>
+              <span className={`
+                text-left font-medium
+                ${selectedValue === option.value
+                  ? 'text-primary-foreground' 
+                  : 'text-foreground'
+                }
+              `}>
+                {option.label}
+              </span>
+            </div>
+            
+            {selectedValue === option.value && (
+              <Check className="w-5 h-5 text-primary-foreground animate-scale-in" />
+            )}
+          </button>
+        ))}
       </div>
     </div>
   );

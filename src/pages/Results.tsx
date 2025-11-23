@@ -36,13 +36,13 @@ const Results = () => {
     { name: "Pesquisa", questions: [8] },
   ];
 
-  // Calculate scores for each category
+  // Calculate scores for each category (scale 1-5)
   const chartData = categories.map((category) => {
     const total = category.questions.reduce((sum, qIndex) => sum + (answers[qIndex] || 0), 0);
     const average = total / category.questions.length;
     return {
       name: category.name,
-      score: Math.round(average * 20), // Convert to 0-100 scale
+      score: Math.round(average * 20), // Convert 1-5 scale to 20-100 scale
     };
   });
 

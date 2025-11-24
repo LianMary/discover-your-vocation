@@ -25,21 +25,21 @@ const Results = () => {
 
   // Categorize questions into vocational areas
   const categories = [
-    { name: "Lógico-Matemática", questions: [0, 9] },
-    { name: "Linguística", questions: [1] },
-    { name: "Espacial", questions: [2] },
-    { name: "Musical", questions: [3] },
-    { name: "Corporal-Cinestésica", questions: [4] },
-    { name: "Interpessoal", questions: [5] },
-    { name: "Intrapessoal", questions: [6] },
-    { name: "Naturalista", questions: [7] },
-    { name: "Existencial", questions: [8] },
+    { name: "Lógico-Matemática", baseQuestions: [0], especificQuestions:[] },
+    { name: "Linguística", baseQuestions: [1] },
+    { name: "Espacial", baseQuestions: [2] },
+    { name: "Musical", baseQuestions: [3] },
+    { name: "Corporal-Cinestésica", baseQuestions: [4] },
+    { name: "Interpessoal", baseQuestions: [5] },
+    { name: "Intrapessoal", baseQuestions: [6] },
+    { name: "Naturalista", baseQuestions: [7] },
+    { name: "Existencial", baseQuestions: [8] },
   ];
 
   // Calculate scores for each category
   const chartData = categories.map((category) => {
-    const total = category.questions.reduce((sum, qIndex) => sum + (answers[qIndex] || 0), 0);
-    const average = total / category.questions.length;
+    const total = category.baseQuestions.reduce((sum, qIndex) => sum + (answers[qIndex] || 0), 0);
+    const average = total / category.baseQuestions.length;
     return {
       name: category.name,
       score: Math.round(average * 20), // Convert to 0-100 scale

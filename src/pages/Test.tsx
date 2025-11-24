@@ -10,7 +10,7 @@ const Test = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
 
-  const questions = [
+  const baseQuestions = [
     "Prefiro resolver probelmas matemáticos, quebra-cabeças e analisar padões lógicos.",
     "Gosto de ler escrever e me comunico verbalmente com facilidade, expressando ideias com clareza.",
     "Tenho facilidade para criar objetos 3D, desenhar, pintar ou interpretar mapas e imagens.",
@@ -22,14 +22,27 @@ const Test = () => {
     "Reflito sobre questões filosóficas.existenciais, e tenho interesse em temas como vida, morte e sentido das coisas.",
 
   ];
-
+  const expecificQuestions = [
+    "Prefiro trabalhar com cálculos, dados, estatísticas e softwares de análise ou programação.",
+    "Me interessaria por carreiras em engenharia, tecnologia, finanças ou pesquisa científica.",
+    "Gostaria de atuar na escrita, edição, jornalismo, ensino ou áreas vinculadas à comunicação.",
+    "Prefere trabalhar com línguas, traduções ou criação de conteúdo literário.",
+    "Tenho interesse por arquitetura, design gráfico, animação, fotografia ou artes visuais.",
+    "Gostaria de trabalhar com planejamento urbano, jogos digitais ou cinema.",
+    "Sinto vontade de se profissionalizar em composição, performance, produção musical ou terapia sonora.",
+    "Prefiro atuar em esportes, dança, fisioterapia, enfermagem ou profissões que envolvam ação física.",
+    "Me imagino trabalhando em áreas como psicologia, coaching, trabalho social, vendas ou liderança?",
+    "Gostaria de focar em desenvolvimento pessoal, filosofia, terapias alternativas ou espiritualidade",
+    "Tenho interesse por biologia, agronomia, veterinária, conservação ambiental ou ecoturismo.",
+    "Quero trabalhar com filosofia, teologia, ética, antropologia ou áreas que discutam o sentido da vida."
+  ];
   const handleAnswer = (value: number) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = value;
     setAnswers(newAnswers);
     
     setTimeout(() => {
-      if (currentQuestion < questions.length - 1) {
+      if (currentQuestion < baseQuestions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
         // Navigate to results page with answers
@@ -86,16 +99,16 @@ const Test = () => {
             <div className="w-full bg-muted rounded-full h-2">
               <div 
                 className="bg-primary h-2 rounded-full transition-all duration-500"
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+                style={{ width: `${((currentQuestion + 1) / baseQuestions.length) * 100}%` }}
               ></div>
             </div>
             
             <div className="text-center text-sm text-muted-foreground">
-              Pergunta {currentQuestion + 1} de {questions.length}
+              Pergunta {currentQuestion + 1} de {baseQuestions.length}
             </div>
 
             <ScaleQuestion
-              question={questions[currentQuestion]}
+              question={baseQuestions[currentQuestion]}
               onAnswer={handleAnswer}
               key={currentQuestion}
             />

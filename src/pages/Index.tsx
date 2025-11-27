@@ -30,7 +30,9 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDesktopDrawerOpen, setIsDesktopDrawerOpen] = useState(false);
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const [isHeroDrawerOpen, setIsHeroDrawerOpen] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -52,7 +54,10 @@ const Index = () => {
         description: `Bem-vindo, ${data.name}!`,
       });
       
-      setIsDrawerOpen(false);
+      // Close all drawers
+      setIsDesktopDrawerOpen(false);
+      setIsMobileDrawerOpen(false);
+      setIsHeroDrawerOpen(false);
       reset();
       navigate("/teste");
     } catch (error) {
@@ -88,7 +93,7 @@ const Index = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+              <Drawer open={isDesktopDrawerOpen} onOpenChange={setIsDesktopDrawerOpen}>
                 <DrawerTrigger asChild>
                   <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
                     <LogIn className="w-4 h-4" />
@@ -169,7 +174,7 @@ const Index = () => {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t">
               <div className="flex flex-col gap-4">
-                <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <Drawer open={isMobileDrawerOpen} onOpenChange={setIsMobileDrawerOpen}>
                   <DrawerTrigger asChild>
                     <button 
                       onClick={() => setIsMenuOpen(false)}
@@ -274,7 +279,7 @@ const Index = () => {
                     <span>Resultado Imediato</span>
                   </div>
                 </div>
-                <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <Drawer open={isHeroDrawerOpen} onOpenChange={setIsHeroDrawerOpen}>
                   <DrawerTrigger asChild>
                     <Button className="w-full">
                       Começar Teste

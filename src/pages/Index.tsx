@@ -36,6 +36,12 @@ const Index = () => {
                 className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <LogIn className="w-4 h-4" />
+                Login
+              </Link>
+              <Link 
+                to="/cadastro"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Cadastro
               </Link>
             </div>
@@ -60,6 +66,13 @@ const Index = () => {
                   className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors p-2"
                 >
                   <LogIn className="w-4 h-4" />
+                  Login
+                </Link>
+                <Link 
+                  to="/cadastro"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                >
                   Cadastro
                 </Link>
               </div>
@@ -99,7 +112,7 @@ const Index = () => {
                     <span>Resultado Imediato</span>
                   </div>
                 </div>
-                <Link to="/login" className="block w-full">
+                <Link to="/cadastro" className="block w-full">
                   <Button className="w-full">
                     Começar Teste
                   </Button>

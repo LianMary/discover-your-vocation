@@ -1,73 +1,11 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, TrendingUp, Brain, Target, Award, Menu, X, Home, Info, LogIn } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useToast } from "@/hooks/use-toast";
-
-const loginSchema = z.object({
-  name: z.string().trim().min(2, "Nome deve ter pelo menos 2 caracteres").max(100, "Nome muito longo"),
-  email: z.string().trim().email("Email inválido").max(255, "Email muito longo"),
-  phone: z.string().trim().min(11, "Telefone deve ter pelo menos 11 dígitos").max(15, "Telefone muito longo"),
-});
-
-type LoginFormData = z.infer<typeof loginSchema>;
+import { BookOpen, TrendingUp, Brain, Target, Award, Menu, X, LogIn } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDesktopDrawerOpen, setIsDesktopDrawerOpen] = useState(false);
-  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
-  const [isHeroDrawerOpen, setIsHeroDrawerOpen] = useState(false);
-  const { toast } = useToast();
-  const navigate = useNavigate();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-  });
-
-  const onSubmit = async (data: LoginFormData) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      
-      toast({
-        title: "Login realizado!",
-        description: `Bem-vindo, ${data.name}!`,
-      });
-      
-      // Close all drawers
-      setIsDesktopDrawerOpen(false);
-      setIsMobileDrawerOpen(false);
-      setIsHeroDrawerOpen(false);
-      reset();
-      navigate("/teste");
-    } catch (error) {
-      toast({
-        title: "Erro ao fazer login",
-        description: "Tente novamente mais tarde.",
-        variant: "destructive",
-      });
-    }
-  };
 
   const popularCourses = [
     { name: "Medicina", icon: "🏥"},
@@ -93,71 +31,13 @@ const Index = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              <Drawer open={isDesktopDrawerOpen} onOpenChange={setIsDesktopDrawerOpen}>
-                <DrawerTrigger asChild>
-                  <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-                    <LogIn className="w-4 h-4" />
-                    Login
-                  </button>
-                </DrawerTrigger>
-                <DrawerContent>
-                  <DrawerHeader>
-                    <DrawerTitle>Faça seu Login</DrawerTitle>
-                    <DrawerDescription>Preencha seus dados para começar o teste vocacional</DrawerDescription>
-                  </DrawerHeader>
-                  
-                  <form onSubmit={handleSubmit(onSubmit)} className="px-4 space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="drawer-name">Nome</Label>
-                      <Input
-                        id="drawer-name"
-                        type="text"
-                        placeholder="Seu nome completo"
-                        {...register("name")}
-                        className={errors.name ? "border-destructive" : ""}
-                      />
-                      {errors.name && (
-                        <p className="text-sm text-destructive">{errors.name.message}</p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="drawer-email">Email</Label>
-                      <Input
-                        id="drawer-email"
-                        type="email"
-                        placeholder="seu@email.com"
-                        {...register("email")}
-                        className={errors.email ? "border-destructive" : ""}
-                      />
-                      {errors.email && (
-                        <p className="text-sm text-destructive">{errors.email.message}</p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="drawer-phone">Telefone</Label>
-                      <Input
-                        id="drawer-phone"
-                        type="tel"
-                        placeholder="(00) 00000-0000"
-                        {...register("phone")}
-                        className={errors.phone ? "border-destructive" : ""}
-                      />
-                      {errors.phone && (
-                        <p className="text-sm text-destructive">{errors.phone.message}</p>
-                      )}
-                    </div>
-
-                    <DrawerFooter className="px-0">
-                      <Button type="submit" size="lg">Começar Teste</Button>
-                      <DrawerClose asChild>
-                        <Button variant="outline">Cancelar</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
-                  </form>
-                </DrawerContent>
-              </Drawer>
+              <Link 
+                to="/login"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <LogIn className="w-4 h-4" />
+                Cadastro
+              </Link>
             </div>
           
 
@@ -174,74 +54,14 @@ const Index = () => {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t">
               <div className="flex flex-col gap-4">
-                <Drawer open={isMobileDrawerOpen} onOpenChange={setIsMobileDrawerOpen}>
-                  <DrawerTrigger asChild>
-                    <button 
-                      onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors p-2"
-                    >
-                      <LogIn className="w-4 h-4" />
-                      Login
-                    </button>
-                  </DrawerTrigger>
-                  <DrawerContent>
-                    <DrawerHeader>
-                      <DrawerTitle>Faça seu Login</DrawerTitle>
-                      <DrawerDescription>Preencha seus dados para começar o teste vocacional</DrawerDescription>
-                    </DrawerHeader>
-                    
-                    <form onSubmit={handleSubmit(onSubmit)} className="px-4 space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="mobile-name">Nome</Label>
-                        <Input
-                          id="mobile-name"
-                          type="text"
-                          placeholder="Seu nome completo"
-                          {...register("name")}
-                          className={errors.name ? "border-destructive" : ""}
-                        />
-                        {errors.name && (
-                          <p className="text-sm text-destructive">{errors.name.message}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="mobile-email">Email</Label>
-                        <Input
-                          id="mobile-email"
-                          type="email"
-                          placeholder="seu@email.com"
-                          {...register("email")}
-                          className={errors.email ? "border-destructive" : ""}
-                        />
-                        {errors.email && (
-                          <p className="text-sm text-destructive">{errors.email.message}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="mobile-phone">Telefone</Label>
-                        <Input
-                          id="mobile-phone"
-                          type="tel"
-                          placeholder="(00) 00000-0000"
-                          {...register("phone")}
-                          className={errors.phone ? "border-destructive" : ""}
-                        />
-                        {errors.phone && (
-                          <p className="text-sm text-destructive">{errors.phone.message}</p>
-                        )}
-                      </div>
-
-                      <DrawerFooter className="px-0">
-                        <Button type="submit" size="lg">Começar Teste</Button>
-                        <DrawerClose asChild>
-                          <Button variant="outline">Cancelar</Button>
-                        </DrawerClose>
-                      </DrawerFooter>
-                    </form>
-                  </DrawerContent>
-                </Drawer>
+                <Link 
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors p-2"
+                >
+                  <LogIn className="w-4 h-4" />
+                  Cadastro
+                </Link>
               </div>
             </div>
           )}
@@ -279,70 +99,11 @@ const Index = () => {
                     <span>Resultado Imediato</span>
                   </div>
                 </div>
-                <Drawer open={isHeroDrawerOpen} onOpenChange={setIsHeroDrawerOpen}>
-                  <DrawerTrigger asChild>
-                    <Button className="w-full">
-                      Começar Teste
-                    </Button>
-                  </DrawerTrigger>
-                  <DrawerContent>
-                    <DrawerHeader>
-                      <DrawerTitle>Faça seu Login</DrawerTitle>
-                      <DrawerDescription>Preencha seus dados para começar o teste vocacional</DrawerDescription>
-                    </DrawerHeader>
-                    
-                    <form onSubmit={handleSubmit(onSubmit)} className="px-4 space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="hero-name">Nome</Label>
-                        <Input
-                          id="hero-name"
-                          type="text"
-                          placeholder="Seu nome completo"
-                          {...register("name")}
-                          className={errors.name ? "border-destructive" : ""}
-                        />
-                        {errors.name && (
-                          <p className="text-sm text-destructive">{errors.name.message}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="hero-email">Email</Label>
-                        <Input
-                          id="hero-email"
-                          type="email"
-                          placeholder="seu@email.com"
-                          {...register("email")}
-                          className={errors.email ? "border-destructive" : ""}
-                        />
-                        {errors.email && (
-                          <p className="text-sm text-destructive">{errors.email.message}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="hero-phone">Telefone</Label>
-                        <Input
-                          id="hero-phone"
-                          type="tel"
-                          placeholder="(00) 00000-0000"
-                          {...register("phone")}
-                          className={errors.phone ? "border-destructive" : ""}
-                        />
-                        {errors.phone && (
-                          <p className="text-sm text-destructive">{errors.phone.message}</p>
-                        )}
-                      </div>
-
-                      <DrawerFooter className="px-0">
-                        <Button type="submit" size="lg">Começar Teste</Button>
-                        <DrawerClose asChild>
-                          <Button variant="outline">Cancelar</Button>
-                        </DrawerClose>
-                      </DrawerFooter>
-                    </form>
-                  </DrawerContent>
-                </Drawer>
+                <Link to="/login" className="block w-full">
+                  <Button className="w-full">
+                    Começar Teste
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>

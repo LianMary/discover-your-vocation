@@ -24,49 +24,53 @@ import { Award, Brain, ArrowLeft } from "lucide-react";
 const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const answers = location.state?.answers as number[] | undefined;
 
-  const [professions, setProfessions] = useState("");
+  const state = location.state as {
+    answers: number[];
+    questions: { id: number; text: string; category: string }[];
+  } | undefined;
 
-  useEffect(() => {
-    if (!answers || answers.length === 0) {
-      navigate("/teste");
-    }
-  }, [answers, navigate]);
-
-  if (!answers) {
+  if (!state) {
+    // Se alguém acessar /resultados direto, sem passar pelo teste
+    navigate("/");
     return null;
   }
 
-  // Categorize questions into vocational areas
-  const categories = [
-    { id: "LogicoMatematica", label: "Lógico Matemática", baseQuestions: [0] },
-    { id: "Linguistica", label: "Linguística", baseQuestions: [1] },
-    { id: "Espacial", label: "Espacial", baseQuestions: [2] },
-    { id: "Musical", label: "Musical", baseQuestions: [3] },
-    {
-      id: "CorporalCinestesica",
-      label: "Corporal Cinestésica",
-      baseQuestions: [4],
-    },
-    { id: "Interpessoal", label: "Interpessoal", baseQuestions: [5] },
-    { id: "Intrapessoal", label: "Intrapessoal", baseQuestions: [6] },
-    { id: "Naturalista", label: "Naturalista", baseQuestions: [7] },
-    { id: "Existencial", label: "Existencial", baseQuestions: [8] },
-  ];
+   const { answers, questions } = state;
 
-  const chartData = categories.map((category) => {
-    const total = category.baseQuestions.reduce(
-      (sum, qIndex) => sum + (answers[qIndex] || 0),
-      0
-    );
-    const average = total / category.baseQuestions.length;
-    return {
-      id: category.id,
-      label: category.label,
-      score: Math.round(average * 20),
-    };
+  // Exemplo simples: somar pontuação por categoria
+  const categoryScores: Record<string, number> = {};
+
+  questions.forEach((q, index) => {
+    const value = answers[index] ?? 0;
+    if (!categoryScores[q.category]) categoryScores[q.category] = 0;
+    categoryScores[q.category] += value;
   });
+
+  // Categorize questions into vocational areas
+ const categoryMeta: Record<string, { id: string; label: string }> = {
+  logicoMatematica: { id: "LogicoMatematica", label: "Lógico Matemática" },
+  linguistica: { id: "Linguistica", label: "Linguística" },
+  espacial: { id: "Espacial", label: "Espacial" },
+  musical: { id: "Musical", label: "Musical" },
+  corporalCinestesica: { id: "CorporalCinestesica", label: "Corporal Cinestésica" },
+  interpessoal: { id: "Interpessoal", label: "Interpessoal" },
+  intrapessoal: { id: "Intrapessoal", label: "Intrapessoal" },
+  naturalista: { id: "Naturalista", label: "Naturalista" },
+  existencial: { id: "Existencial", label: "Existencial" },
+};
+
+  const chartData = Object.entries(categoryScores).map(([categoryKey, totalScore]) => {
+  const meta = categoryMeta[categoryKey] || { id: categoryKey, label: categoryKey };
+  // só normaliza grosseiramente para 0–100 multiplicando por um fator
+  const scorePercent = Math.min(100, totalScore * 10);
+
+  return {
+    id: meta.id,
+    label: meta.label,
+    score: scorePercent,
+  };
+});
 
   // Sort by score to find top 3
   const sortedCategories = [...chartData].sort((a, b) => b.score - a.score);
@@ -85,6 +89,7 @@ const Results = () => {
     Existencial: ["Filósofo", "Teólogo", "Pesquisador de Ciências Humanas"],
   };
 
+  const [professions, setProfessions] = useState("");
   // Generate profession recommendations
   useEffect(() => {
     const recommendations = topCategories

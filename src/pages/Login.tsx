@@ -37,7 +37,7 @@ const Login = () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
       toast({
-        title: "Login realizado!",
+        title: "Cadastro realizado!",
         description: `Bem-vindo, ${data.name}!`,
       });
       
@@ -47,7 +47,7 @@ const Login = () => {
       navigate("/teste");
     } catch (error) {
       toast({
-        title: "Erro ao fazer login",
+        title: "Erro ao fazer cadastro",
         description: "Tente novamente mais tarde.",
         variant: "destructive",
       });
@@ -61,7 +61,7 @@ const Login = () => {
       <div className="w-full max-w-md">
         <div className="bg-card border border-border rounded-2xl shadow-xl p-8 space-y-6">
           <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold text-foreground">Entrar</h1>
+            <h1 className="text-3xl font-bold text-foreground">Cadastro</h1>
             <p className="text-muted-foreground">Preencha seus dados para continuar</p>
           </div>
 
@@ -114,7 +114,7 @@ const Login = () => {
               size="lg"
               disabled={isLoading}
             >
-              {isLoading ? "Entrando..." : "Entrar"}
+              {isLoading ? "Cadastrando..." : "Cadastrar"}
             </Button>
           </form>
         </div>

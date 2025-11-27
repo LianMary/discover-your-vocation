@@ -19,9 +19,10 @@ const Test = () => {
     "Me sinto confortavel em trabalhar com pessoas, entender emoções e colaborar em equipe.",
     "Tenho facilidade em refletir sobre mim mesmo. Conheço meus sentimentos, motivações e objetivos.",
     "Gosto de estar em contato com a naturaza, estudar plantas, animais e ajudar me causas ambientais.",
-    "Reflito sobre questões filosóficas.existenciais, e tenho interesse em temas como vida, morte e sentido das coisas.",
+    "Reflito sobre questões filosóficas existenciais, e tenho interesse em temas como vida, morte e sentido das coisas.",
 
   ];
+  /*
   const expecificQuestions = [
     "Prefiro trabalhar com cálculos, dados, estatísticas e softwares de análise ou programação.",
     "Me interessaria por carreiras em engenharia, tecnologia, finanças ou pesquisa científica.",
@@ -36,6 +37,8 @@ const Test = () => {
     "Tenho interesse por biologia, agronomia, veterinária, conservação ambiental ou ecoturismo.",
     "Quero trabalhar com filosofia, teologia, ética, antropologia ou áreas que discutam o sentido da vida."
   ];
+  */ 
+
   const handleAnswer = (value: number) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = value;
@@ -69,7 +72,7 @@ const Test = () => {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Brain className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="font-bold text-lg">TestVocacional</span>
+              <span className="font-bold text-lg">Teste Vocacional</span>
             </div>
 
             {/* Back Link */}

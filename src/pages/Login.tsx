@@ -55,8 +55,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 px-4">
-      <div className="w-full max-w-md">
+    <div className="lex min-h-screen w-full items-center justify-center 
+    bg-gradient-to-br from-[#188eee] to-[#24eaaf] p-4 font-['Inter',_sans-serif]">
+      <div className="flex justify-center mb-8">
         <div className="bg-card border border-border rounded-2xl shadow-xl p-8 space-y-6 animate-scale-in">
           {/* Logo */}
           <div className="flex justify-center mb-4">
